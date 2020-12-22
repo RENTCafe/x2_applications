@@ -1,2 +1,2 @@
 # trading-charts
-<img src="https://user-images.gi
+<img src="https://user-images.githubusercontent.com/53475
