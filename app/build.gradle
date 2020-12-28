@@ -1,2 +1,3 @@
 plugins {
-    id 'com.andro
+    id 'com.android.application'
+  
