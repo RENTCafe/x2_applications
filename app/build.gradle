@@ -6,4 +6,5 @@ plugins {
 android {
     compileSdk 31
 
-    default
+    defaultConfig {
+        applicationId "co
