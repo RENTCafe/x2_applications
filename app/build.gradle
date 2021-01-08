@@ -7,4 +7,5 @@ android {
     compileSdk 31
 
     defaultConfig {
-        applicationId "co
+        applicationId "com.jaychang.charts"
+        mi
