@@ -8,4 +8,5 @@ android {
 
     defaultConfig {
         applicationId "com.jaychang.charts"
-        mi
+        minSdk 21
+        targetSd
