@@ -23,4 +23,4 @@ android {
         }
     }
     compileOptions {
-        so
+        sourceCompatibility JavaVe
