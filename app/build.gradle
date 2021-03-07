@@ -37,4 +37,4 @@ dependencies {
     implementation 'com.google.android.material:material:1.5.0'
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.3.2")
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5")
-    testImplemen
+    testImplementation 'junit:junit:4.13
