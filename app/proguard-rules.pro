@@ -1,2 +1,2 @@
 # Add project specific ProGuard rules here.
-# You can control the set o
+# You can control the set of applied configuration file
