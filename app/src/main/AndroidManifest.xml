@@ -3,4 +3,5 @@
     package="com.jaychang.charts">
 
     <application
-        android:allowBackup=
+        android:allowBackup="true"
+        android:
