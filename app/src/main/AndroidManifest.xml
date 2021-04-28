@@ -10,4 +10,4 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CandlestickChart">
         <activity
-           
+            android:name="com.jaychang.
