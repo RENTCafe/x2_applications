@@ -11,4 +11,5 @@
         android:theme="@style/Theme.CandlestickChart">
         <activity
             android:name="com.jaychang.charts.DemoActivity"
-            android:export
+            android:exported="true"
+            andr
