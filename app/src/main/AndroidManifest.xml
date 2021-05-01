@@ -12,4 +12,4 @@
         <activity
             android:name="com.jaychang.charts.DemoActivity"
             android:exported="true"
-            andr
+            android:label="@string/app
