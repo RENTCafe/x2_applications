@@ -13,4 +13,5 @@
             android:name="com.jaychang.charts.DemoActivity"
             android:exported="true"
             android:label="@string/app_name">
-            <inte
+            <intent-filter>
+           
