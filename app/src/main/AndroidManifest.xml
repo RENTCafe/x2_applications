@@ -20,4 +20,6 @@
             </intent-filter>
         </activity>
 
-    </applicat
+    </application>
+
+</manifest>
