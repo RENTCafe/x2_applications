@@ -1,3 +1,5 @@
 package com.jaychang.charts
 
-import kotlinx.datetime.LocalDat
+import kotlinx.datetime.LocalDate
+
+data class BarData(
