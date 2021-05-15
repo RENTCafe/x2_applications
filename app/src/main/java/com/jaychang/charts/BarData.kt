@@ -5,4 +5,5 @@ import kotlinx.datetime.LocalDate
 data class BarData(
     val time: LocalDate,
     val open: Float,
-    val 
+    val high: Float,
+    val low
