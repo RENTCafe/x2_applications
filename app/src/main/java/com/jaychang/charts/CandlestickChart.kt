@@ -19,3 +19,24 @@ class CandlestickChart @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttrs: Int = 0
+) : View(context, attrs, defStyleAttrs), GestureDetectionMediator.Listener {
+    var config: Config = Config()
+        set(value) {
+            field = value
+            init(value)
+        }
+
+    var data: List<BarData> = emptyList()
+        set(value) {
+            field = value
+            doOnLayout {
+                updateData(value)
+                invalidate()
+            }
+        }
+
+    var currentPrice: Float? = null
+        set(value) {
+            field = value
+            invalidate()
+        }
