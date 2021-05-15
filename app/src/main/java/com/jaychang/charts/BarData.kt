@@ -6,4 +6,5 @@ data class BarData(
     val time: LocalDate,
     val open: Float,
     val high: Float,
-    val low
+    val low: Float,
+    val cl
