@@ -7,4 +7,5 @@ data class BarData(
     val open: Float,
     val high: Float,
     val low: Float,
-    val cl
+    val close: Float
+)
