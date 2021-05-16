@@ -40,3 +40,35 @@ class CandlestickChart @JvmOverloads constructor(
             field = value
             invalidate()
         }
+
+    // Data
+    private var dataStartIndex = 0
+    private var dataGroupedByMonth = mapOf<String, List<BarData>>()
+    private val dataWithinGraph: List<BarData>
+        get() {
+            val seriesEnd = (dataStartIndex + availableCandlesCount).coerceAtMost(data.size)
+            return data.subList(dataStartIndex, seriesEnd)
+        }
+    private val availableCandlesCount: Int
+        get() = (graphWidth / (candleWidth + candleSpace)).toInt()
+    private val graphWidth: Float
+        get() {
+            val maxPrice = data.maxOf { it.high }
+            val textBound = priceScaleFormatter.format(maxPrice).textBound(priceScaleTextPaint)
+            return width.toFloat() - (textBound.width() + priceScalePadding * 2)
+        }
+    private val graphHeight: Float
+        get() = height.toFloat() - timeScaleTextHeight
+    private val maxPrice: Float
+        get() = dataWithinGraph.maxOf { it.high }
+    private val minPrice: Float
+        get() = dataWithinGraph.minOf { it.low }
+
+    // Layout
+    private val layoutPaint = Paint()
+
+    // Price scale
+    private val priceScaleTextPaint = Paint()
+    private val priceScaleFormatter = DecimalFormat("0.00")
+    private var priceScaleTextHeight = 0f
+    private var priceScalePadding = 0
