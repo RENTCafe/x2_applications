@@ -72,3 +72,32 @@ class CandlestickChart @JvmOverloads constructor(
     private val priceScaleFormatter = DecimalFormat("0.00")
     private var priceScaleTextHeight = 0f
     private var priceScalePadding = 0
+
+    // Time scale
+    private val timeScaleTextPaint = Paint()
+    private val timeScaleMonthFormatter = DecimalFormat("00")
+    private var timeScaleTextWidth = 0f
+    private var timeScaleTextHeight = 0f
+
+    // Current price
+    private val currentPriceLineUpPaint = Paint()
+    private val currentPriceLineDownPaint = Paint()
+    private val currentPriceBoxUpPaint = Paint()
+    private val currentPriceBoxDownPaint = Paint()
+    private val currentPriceTextPaint = Paint()
+
+    // Candlestick
+    private var _candleWidth = 0f
+    private val candleWidth: Float
+        get() = _candleWidth * candleScale
+    private var _candleSpace = 0f
+    private val candleSpace: Float
+        get() = _candleSpace * candleScale
+    private val candlestickUpPaint = Paint()
+    private val candlestickDownPaint = Paint()
+    private var candleScale = 0f
+
+    // Crosshair
+    private var crosshairX = 0f
+    private var crosshairY = 0f
+    private val crosshairLinePaint = Paint()
