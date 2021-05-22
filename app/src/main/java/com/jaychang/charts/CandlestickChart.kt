@@ -101,3 +101,28 @@ class CandlestickChart @JvmOverloads constructor(
     private var crosshairX = 0f
     private var crosshairY = 0f
     private val crosshairLinePaint = Paint()
+    private val crosshairPriceBoxPaint = Paint()
+    private val crosshairPriceTextPaint = Paint()
+    private var isCrosshairVisible = false
+
+    private val gestureDetectionMediator = GestureDetectionMediator(context, this)
+
+    init {
+        init()
+    }
+
+    private fun init(config: Config = Config()) {
+        initLayout(config)
+        initTimeScale(config)
+        initPriceScale(config)
+        initCurrentPrice(config)
+        initCandlestick(config)
+        initCrosshair(config)
+    }
+
+    private fun initLayout(config: Config) {
+        layoutPaint.apply {
+            isAntiAlias = true
+            style = Paint.Style.STROKE
+            strokeWidth = 1f
+            color = config.layoutLineColor
