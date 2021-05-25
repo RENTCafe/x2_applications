@@ -126,3 +126,25 @@ class CandlestickChart @JvmOverloads constructor(
             style = Paint.Style.STROKE
             strokeWidth = 1f
             color = config.layoutLineColor
+        }
+    }
+
+    private fun initTimeScale(config: Config) {
+        timeScaleTextPaint.apply {
+            isAntiAlias = true
+            textSize = resources.getDimension(R.dimen.time_scale_text_size)
+            color = config.timeScaleTextColor
+        }
+        val timeScaleText = "2022/05".textBound(timeScaleTextPaint)
+        timeScaleTextWidth = timeScaleText.width().toFloat()
+        timeScaleTextHeight = timeScaleText.height().toFloat()
+    }
+
+    private fun initPriceScale(config: Config) {
+        priceScaleTextPaint.apply {
+            isAntiAlias = true
+            textSize = resources.getDimension(R.dimen.price_scale_text_size)
+            color = config.priceScaleTextColor
+        }
+        priceScaleTextHeight = priceScaleFormatter.format(100f).textBound(priceScaleTextPaint).height().toFloat()
+        priceScalePadding = resources.getDimensionPixelSize(R.dimen.price_scale_padding)
