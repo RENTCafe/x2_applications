@@ -148,3 +148,24 @@ class CandlestickChart @JvmOverloads constructor(
         }
         priceScaleTextHeight = priceScaleFormatter.format(100f).textBound(priceScaleTextPaint).height().toFloat()
         priceScalePadding = resources.getDimensionPixelSize(R.dimen.price_scale_padding)
+    }
+
+    private fun initCurrentPrice(config: Config) {
+        fun Paint.applyCommon() {
+            isAntiAlias = true
+            style = Paint.Style.STROKE
+            pathEffect = DashPathEffect(floatArrayOf(4f, 4f, 4f, 4f), 0f)
+            strokeWidth = 2f
+        }
+        currentPriceLineUpPaint.apply {
+            applyCommon()
+            color = config.upColor
+        }
+        currentPriceLineDownPaint.apply {
+            applyCommon()
+            color = config.downColor
+        }
+        currentPriceTextPaint.apply {
+            isAntiAlias = true
+            color = Color.WHITE
+            textSize = resources.getDimensionPixelSize(R.dimen.price_scale_text_size).toFloat()
