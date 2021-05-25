@@ -169,3 +169,26 @@ class CandlestickChart @JvmOverloads constructor(
             isAntiAlias = true
             color = Color.WHITE
             textSize = resources.getDimensionPixelSize(R.dimen.price_scale_text_size).toFloat()
+        }
+        currentPriceBoxUpPaint.apply {
+            color = config.upColor
+        }
+        currentPriceBoxDownPaint.apply {
+            color = config.downColor
+        }
+    }
+
+    private fun initCandlestick(config: Config) {
+        _candleWidth = context.resources.getDimension(R.dimen.candle_width)
+        _candleSpace = context.resources.getDimension(R.dimen.candle_space)
+        candleScale = config.candleDefaultScale
+        candlestickUpPaint.apply {
+            isAntiAlias = true
+            color = config.upColor
+            strokeWidth = 2f
+            style = Paint.Style.STROKE
+        }
+        candlestickDownPaint.apply {
+            isAntiAlias = true
+            color = config.downColor
+            style = Paint.Style.FILL
