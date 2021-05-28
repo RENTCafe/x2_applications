@@ -192,3 +192,21 @@ class CandlestickChart @JvmOverloads constructor(
             isAntiAlias = true
             color = config.downColor
             style = Paint.Style.FILL
+        }
+    }
+
+    private fun initCrosshair(config: Config) {
+        crosshairLinePaint.apply {
+            isAntiAlias = true
+            style = Paint.Style.STROKE
+            pathEffect = DashPathEffect(floatArrayOf(4f, 4f, 4f, 4f), 0f)
+            strokeWidth = 2f
+            color = config.crosshairColor
+        }
+        crosshairPriceBoxPaint.apply {
+            color = config.crosshairColor
+        }
+        crosshairPriceTextPaint.apply {
+            isAntiAlias = true
+            textSize = resources.getDimensionPixelSize(R.dimen.price_scale_text_size).toFloat()
+            color = config.crosshairPriceColor
