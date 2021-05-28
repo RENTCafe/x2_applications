@@ -210,3 +210,27 @@ class CandlestickChart @JvmOverloads constructor(
             isAntiAlias = true
             textSize = resources.getDimensionPixelSize(R.dimen.price_scale_text_size).toFloat()
             color = config.crosshairPriceColor
+        }
+    }
+
+    override fun onScale(factor: Float) {
+        candleScale *= factor
+        candleScale = candleScale.coerceIn(config.candleMinScale, config.candleMaxScale)
+        invalidate()
+    }
+
+    override fun getMinScrollDistance(): Float = candleWidth + candleSpace
+
+    override fun onScroll(distance: Float) {
+        val minMoveDistance = getMinScrollDistance()
+        val count = (-distance / minMoveDistance).toInt()
+        if (abs(count) >= 1) {
+            dataStartIndex += count
+            dataStartIndex = dataStartIndex.coerceIn(0, data.size - availableCandlesCount)
+            invalidate()
+        }
+    }
+
+    override fun onPressBegin(x: Float, y: Float) {
+        if (!isCrosshairVisible) {
+            isCrosshairVisible = true
