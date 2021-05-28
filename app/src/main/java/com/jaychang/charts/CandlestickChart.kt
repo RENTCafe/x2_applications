@@ -234,3 +234,31 @@ class CandlestickChart @JvmOverloads constructor(
     override fun onPressBegin(x: Float, y: Float) {
         if (!isCrosshairVisible) {
             isCrosshairVisible = true
+            crosshairX = x.coerceIn(0f, graphWidth)
+            crosshairY = y.coerceIn(0f, graphHeight)
+            invalidate()
+        }
+    }
+
+    override fun onPressMoving(x: Float, y: Float) {
+        if (isCrosshairVisible) {
+            crosshairX = x.coerceIn(0f, graphWidth)
+            crosshairY = y.coerceIn(0f, graphHeight)
+            invalidate()
+        }
+    }
+
+    override fun onPressEnd() {
+        if (isCrosshairVisible) {
+            isCrosshairVisible = false
+            invalidate()
+        }
+    }
+
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        gestureDetectionMediator.onTouchEvent(event)
+        return true
+    }
+
+    override fun onDraw(canvas: Canvas) {
+        canvas.drawLayout()
