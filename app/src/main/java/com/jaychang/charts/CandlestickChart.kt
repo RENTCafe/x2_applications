@@ -283,3 +283,29 @@ class CandlestickChart @JvmOverloads constructor(
         val verticalLineX = stopX - priceScalePadding
         drawLine(verticalLineX, 0f, verticalLineX, graphHeight, layoutPaint)
     }
+
+    private fun Canvas.drawTimeScale() {
+        fun drawTime(date: LocalDate, xOffset: Float) {
+            val x = xOffset + candleWidth / 2
+            drawLine(x, 0f, x, graphHeight, layoutPaint)
+
+            drawText(
+                date.formatted(),
+                // align center with above candle
+                x - timeScaleTextWidth / 2,
+                height.toFloat(),
+                timeScaleTextPaint
+            )
+        }
+
+        fun isFirstMonth(data: BarData): Boolean {
+            val group = dataGroupedByMonth[data.time.formatted()] ?: return false
+            return group.first() == data
+        }
+
+        var xOffset = 0f
+        for (data in dataWithinGraph) {
+            if (isFirstMonth(data)) {
+                drawTime(data.time, xOffset)
+            }
+            xOffset += candleWidth + candleSpace
