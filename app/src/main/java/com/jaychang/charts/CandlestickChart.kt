@@ -262,3 +262,24 @@ class CandlestickChart @JvmOverloads constructor(
 
     override fun onDraw(canvas: Canvas) {
         canvas.drawLayout()
+        canvas.drawTimeScale()
+        canvas.drawPriceScale()
+        canvas.drawCurrentPrice()
+        canvas.drawCandlesticks()
+        canvas.drawCrosshair()
+    }
+
+    // todo line overlap the view y=0, color is lighter.
+    private fun Canvas.drawLayout() {
+        val rowCount = config.layoutRowCount
+        val rowInterval = graphHeight / rowCount
+        val stopX = graphWidth + priceScalePadding
+        val points = (0..rowCount).map {
+            listOf(0f, rowInterval * it, stopX, rowInterval * it)
+        }.flatten().toFloatArray()
+        drawLines(points, layoutPaint)
+
+        // Draw vertical line to separate price scale
+        val verticalLineX = stopX - priceScalePadding
+        drawLine(verticalLineX, 0f, verticalLineX, graphHeight, layoutPaint)
+    }
