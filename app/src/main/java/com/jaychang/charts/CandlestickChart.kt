@@ -309,3 +309,36 @@ class CandlestickChart @JvmOverloads constructor(
                 drawTime(data.time, xOffset)
             }
             xOffset += candleWidth + candleSpace
+        }
+    }
+
+    private fun Canvas.drawPriceScale() {
+        val maxPrice = maxPrice
+        val minPrice = minPrice
+        val priceInterval = (maxPrice - minPrice) / config.layoutRowCount
+        val textX = graphWidth + priceScalePadding
+        val textY = priceScaleTextHeight
+        val rowCount = config.layoutRowCount
+        val rowHeight = graphHeight / config.layoutRowCount
+        for (i in (0..rowCount)) {
+            val yOffset = if (i == 0) {
+                0f        // top
+            } else if (i == rowCount) {
+                textY     // bottom
+            } else {
+                textY / 2 // center
+            }
+            val text = priceScaleFormatter.format(maxPrice - priceInterval * i)
+            drawText(text, textX, textY + rowHeight * i - yOffset, priceScaleTextPaint)
+        }
+    }
+
+    private fun Canvas.drawCandlesticks() {
+        fun drawCandlestick(data: BarData, xOffset: Float) {
+            val paint = if (data.close >= data.open) candlestickUpPaint else candlestickDownPaint
+
+            val maxPrice = maxPrice
+            val minPrice = minPrice
+
+            // Draw up wicks
+            drawLine(
