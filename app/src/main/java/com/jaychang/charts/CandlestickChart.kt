@@ -369,3 +369,37 @@ class CandlestickChart @JvmOverloads constructor(
                 paint
             )
         }
+
+        var xOffset = 0f
+        for (data in dataWithinGraph) {
+            drawCandlestick(data, xOffset)
+            xOffset += candleWidth + candleSpace
+        }
+    }
+
+    private fun y(price: Float, maxPrice: Float, minPrice: Float): Float {
+        return (maxPrice - price) / (maxPrice - minPrice) * graphHeight
+    }
+
+    private fun updateData(data: List<BarData>) {
+        dataStartIndex = (data.size - availableCandlesCount).coerceAtLeast(0)
+        dataGroupedByMonth = data.groupBy { it.time.formatted() }
+    }
+
+    private fun LocalDate.formatted() = "$year/${timeScaleMonthFormatter.format(monthNumber)}"
+
+    private fun Canvas.drawCurrentPrice() {
+        val price = currentPrice ?: return
+        val lastCandle = data.lastOrNull() ?: return
+
+        // Draw price box
+        val priceText = priceScaleFormatter.format(price)
+        val textBound = priceText.textBound(priceScaleTextPaint)
+        val textX = width.toFloat() - textBound.width() - priceScalePadding * 2
+        val textY = y(price, maxPrice, minPrice)
+        val currentPriceBoxPaint = if (price > lastCandle.open) currentPriceBoxUpPaint else currentPriceBoxDownPaint
+        val topPadding = priceScalePadding / 2
+        drawRect(
+            textX,
+            textY - textBound.height() - topPadding,
+            textX + textBound.width() + priceScalePadding * 2,
