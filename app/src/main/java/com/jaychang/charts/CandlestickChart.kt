@@ -342,3 +342,30 @@ class CandlestickChart @JvmOverloads constructor(
 
             // Draw up wicks
             drawLine(
+                xOffset + candleWidth / 2,
+                y(max(data.open, data.close), maxPrice, minPrice),
+                xOffset + candleWidth / 2,
+                y(data.high, maxPrice, minPrice),
+                paint
+            )
+
+            // Draw down wicks
+            drawLine(
+                xOffset + candleWidth / 2,
+                y(min(data.open, data.close), maxPrice, minPrice),
+                xOffset + candleWidth / 2,
+                y(data.low, maxPrice, minPrice),
+                paint
+            )
+
+            // Draw border
+            // Draw 1 px line if open = close instead of empty border
+            val borderOffset = if (data.open == data.close) 1f else 0f
+            drawRect(
+                xOffset,
+                y(max(data.open, data.close), maxPrice, minPrice),
+                xOffset + candleWidth,
+                y(min(data.open, data.close), maxPrice, minPrice) + borderOffset,
+                paint
+            )
+        }
