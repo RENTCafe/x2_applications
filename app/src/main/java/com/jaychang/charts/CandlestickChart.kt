@@ -440,3 +440,28 @@ class CandlestickChart @JvmOverloads constructor(
             textX + textBound.width() + priceScalePadding * 2,
             textY + topPadding,
             crosshairPriceBoxPaint
+        )
+        drawText(priceText, textX + priceScalePadding, textY, crosshairPriceTextPaint)
+    }
+
+    data class Config(
+        val layoutBackgroundColor: Int = Color.WHITE,
+        val layoutRowCount: Int = 4,
+        val layoutLineColor: Int = Color.GRAY,
+        val priceScaleTextColor: Int = Color.GRAY,
+        val timeScaleTextColor: Int = Color.GRAY,
+        val upColor: Int = Color.GREEN,
+        val downColor: Int = Color.RED,
+        val candleDefaultScale: Float = 5f,
+        val candleMinScale: Float = 2f,
+        val candleMaxScale: Float = 10f,
+        val crosshairColor: Int = Color.GRAY,
+        val crosshairPriceColor: Int = Color.WHITE
+    )
+}
+
+// Move event is too sensitive that it also be dispatched to scroll detector when the scaling ends,
+// which causes after scaling ends the chart will be suddenly moved. To workaround this, we threshold
+// the interval time between scale end event and next scroll event, so the scroll action will
+// be ignored if too fast between these two actions.
+private class GestureDetectionMediator(context: Context, listener: Listener) {
