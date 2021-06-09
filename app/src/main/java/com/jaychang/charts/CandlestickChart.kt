@@ -403,3 +403,20 @@ class CandlestickChart @JvmOverloads constructor(
             textX,
             textY - textBound.height() - topPadding,
             textX + textBound.width() + priceScalePadding * 2,
+            textY + topPadding,
+            currentPriceBoxPaint
+        )
+        drawText(priceText, textX + priceScalePadding, textY, currentPriceTextPaint)
+
+        // Draw line
+        val currentPriceLinePaint = if (price > lastCandle.close) currentPriceLineUpPaint else currentPriceLineDownPaint
+        val lineY = textY - textBound.height() / 2
+        drawLine(0f, lineY, textX, lineY, currentPriceLinePaint)
+    }
+
+    private fun Canvas.drawCrosshair() {
+        fun price(y: Float, maxPrice: Float, minPrice: Float, height: Float): Float {
+            return maxPrice - y * (maxPrice - minPrice) / height
+        }
+
+        if (!isCrosshairVisible) return
