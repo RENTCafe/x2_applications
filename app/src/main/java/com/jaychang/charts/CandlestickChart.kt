@@ -420,3 +420,23 @@ class CandlestickChart @JvmOverloads constructor(
         }
 
         if (!isCrosshairVisible) return
+
+        // Draw cross lines
+        drawLine(0f, crosshairY, width.toFloat(), crosshairY, crosshairLinePaint)
+        drawLine(crosshairX, 0f, crosshairX, graphHeight, crosshairLinePaint)
+
+        // Draw price box
+        val maxPrice = maxPrice
+        val minPrice = minPrice
+        val price = price(crosshairY, maxPrice, minPrice, graphHeight)
+        val priceText = priceScaleFormatter.format(price)
+        val textBound = priceText.textBound(priceScaleTextPaint)
+        val textX = graphWidth
+        val textY = y(price, maxPrice, minPrice) + textBound.height() / 2
+        val topPadding = priceScalePadding / 2
+        drawRect(
+            textX,
+            textY - textBound.height() - topPadding,
+            textX + textBound.width() + priceScalePadding * 2,
+            textY + topPadding,
+            crosshairPriceBoxPaint
