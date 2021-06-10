@@ -465,3 +465,25 @@ class CandlestickChart @JvmOverloads constructor(
 // the interval time between scale end event and next scroll event, so the scroll action will
 // be ignored if too fast between these two actions.
 private class GestureDetectionMediator(context: Context, listener: Listener) {
+    private val scaleGestureDetector = ChartScaleGestureDetector(context, object: ChartScaleGestureDetector.Listener {
+        override fun onScale(detector: ChartScaleGestureDetector, factor: Float) {
+            listener.onScale(factor)
+        }
+    })
+
+    private val scrollGestureDetector = ChartScrollGestureDetector(object : ChartScrollGestureDetector.Listener {
+        override fun getMinScrollDistance(): Float = listener.getMinScrollDistance()
+        override fun onScroll(detector: ChartScrollGestureDetector, distance: Float) {
+            val isScaling = scaleGestureDetector.isInProgress || !detector.isScrolling
+            val isTooFastBetweenScaleAndScroll = abs(scaleGestureDetector.scaleEventTime - detector.scrollEventTime) <= SCROLL_SCALE_INTERVAL_THRESHOLD
+            if (isScaling || isTooFastBetweenScaleAndScroll) {
+                return
+            }
+            listener.onScroll(distance)
+        }
+    })
+
+    private val pressDetector = ChartPressGestureDetector(context, object : ChartPressGestureDetector.Listener {
+        override fun onPressBegin(detector: ChartPressGestureDetector, x: Float, y: Float) {
+            listener.onPressBegin(x, y)
+        }
