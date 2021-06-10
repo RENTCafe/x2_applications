@@ -512,3 +512,29 @@ private class GestureDetectionMediator(context: Context, listener: Listener) {
         fun onPressBegin(x: Float, y: Float)
         fun onPressMoving(x: Float, y: Float)
         fun onPressEnd()
+    }
+
+    private companion object {
+        private const val SCROLL_SCALE_INTERVAL_THRESHOLD = 500L
+    }
+}
+
+private class ChartPressGestureDetector(context: Context, private val listener: Listener) {
+    private var _isPressing = false
+    val isPressing: Boolean
+        get() = _isPressing
+
+    private var isLongPressed = false
+
+    private val pressDetector = GestureDetector(context, object : GestureDetector.SimpleOnGestureListener() {
+        override fun onLongPress(e: MotionEvent) {
+            isLongPressed = true
+            _isPressing = true
+            listener.onPressBegin(this@ChartPressGestureDetector, e.x, e.y)
+        }
+
+        override fun onScroll(
+            e1: MotionEvent,
+            e2: MotionEvent,
+            distanceX: Float,
+            distanceY: Float
