@@ -487,3 +487,28 @@ private class GestureDetectionMediator(context: Context, listener: Listener) {
         override fun onPressBegin(detector: ChartPressGestureDetector, x: Float, y: Float) {
             listener.onPressBegin(x, y)
         }
+
+        override fun onPressMoving(detector: ChartPressGestureDetector, x: Float, y: Float) {
+            listener.onPressMoving(x, y)
+        }
+
+        override fun onPressEnd(detector: ChartPressGestureDetector) {
+            listener.onPressEnd()
+        }
+    })
+
+    fun onTouchEvent(event: MotionEvent) {
+        pressDetector.onTouchEvent(event)
+        scaleGestureDetector.onTouchEvent(event)
+        if (!scaleGestureDetector.isInProgress && !pressDetector.isPressing) {
+            scrollGestureDetector.onTouchEvent(event)
+        }
+    }
+
+    interface Listener {
+        fun onScale(factor: Float)
+        fun getMinScrollDistance(): Float
+        fun onScroll(distance: Float)
+        fun onPressBegin(x: Float, y: Float)
+        fun onPressMoving(x: Float, y: Float)
+        fun onPressEnd()
