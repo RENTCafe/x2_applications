@@ -592,3 +592,27 @@ private class ChartScaleGestureDetector(context: Context, listener: Listener) {
 
         override fun onScale(detector: ScaleGestureDetector): Boolean {
             _scaleEventTime = detector.eventTime
+            listener.onScale(this@ChartScaleGestureDetector, detector.scaleFactor)
+            return true
+        }
+
+        override fun onScaleEnd(detector: ScaleGestureDetector) {
+            _scaleEventTime = detector.eventTime
+        }
+    })
+
+    fun onTouchEvent(event: MotionEvent) {
+        scaleDetector.onTouchEvent(event)
+    }
+
+    interface Listener {
+        fun onScale(detector: ChartScaleGestureDetector, factor: Float)
+    }
+}
+
+private class ChartScrollGestureDetector(private val listener: Listener) {
+    private var lastX = 0f
+
+    private var _scrollEventTime = 0L
+    val scrollEventTime: Long
+        get() = _scrollEventTime
