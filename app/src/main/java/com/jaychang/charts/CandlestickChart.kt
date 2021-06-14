@@ -538,3 +538,35 @@ private class ChartPressGestureDetector(context: Context, private val listener: 
             e2: MotionEvent,
             distanceX: Float,
             distanceY: Float
+        ): Boolean {
+            listener.onPressMoving(this@ChartPressGestureDetector, e2.x, e2.y)
+            return true
+        }
+
+        override fun onDown(e: MotionEvent): Boolean {
+            return true
+        }
+    })
+
+    fun onTouchEvent(event: MotionEvent) {
+        pressDetector.onTouchEvent(event)
+        // As long press block the subsequent onScroll event, to workaround it,
+        // we set a cancel event to it so we get the onScroll event.
+        // See https://stackoverflow.com/a/56545079
+        when (event.action) {
+            MotionEvent.ACTION_MOVE -> {
+                if (isLongPressed) {
+                    isLongPressed = false
+                    val cancel = MotionEvent.obtain(event)
+                    cancel.action = MotionEvent.ACTION_CANCEL
+                    pressDetector.onTouchEvent(cancel)
+                }
+            }
+            MotionEvent.ACTION_UP -> {
+                _isPressing = false
+                listener.onPressEnd(this@ChartPressGestureDetector)
+            }
+        }
+    }
+
+    interface Listener {
