@@ -570,3 +570,25 @@ private class ChartPressGestureDetector(context: Context, private val listener: 
     }
 
     interface Listener {
+        fun onPressBegin(detector: ChartPressGestureDetector, x: Float, y: Float)
+        fun onPressMoving(detector: ChartPressGestureDetector, x: Float, y: Float)
+        fun onPressEnd(detector: ChartPressGestureDetector)
+    }
+}
+
+private class ChartScaleGestureDetector(context: Context, listener: Listener) {
+    private var _scaleEventTime = 0L
+    val scaleEventTime: Long
+        get() = _scaleEventTime
+
+    val isInProgress: Boolean
+        get() = scaleDetector.isInProgress
+
+    private val scaleDetector = ScaleGestureDetector(context, object : ScaleGestureDetector.SimpleOnScaleGestureListener() {
+        override fun onScaleBegin(detector: ScaleGestureDetector): Boolean {
+            _scaleEventTime = 0
+            return true
+        }
+
+        override fun onScale(detector: ScaleGestureDetector): Boolean {
+            _scaleEventTime = detector.eventTime
