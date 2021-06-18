@@ -616,3 +616,25 @@ private class ChartScrollGestureDetector(private val listener: Listener) {
     private var _scrollEventTime = 0L
     val scrollEventTime: Long
         get() = _scrollEventTime
+
+    private var _isScrolling = false
+    val isScrolling: Boolean
+        get() = _isScrolling
+
+
+    fun onTouchEvent(event: MotionEvent) {
+        when (event.action) {
+            MotionEvent.ACTION_DOWN -> {
+                _scrollEventTime = event.downTime
+                lastX = event.x
+            }
+            MotionEvent.ACTION_MOVE -> {
+                _scrollEventTime = event.eventTime
+                _isScrolling = event.pointerCount == 1
+                val dx = event.x - lastX
+                val minMoveDistance = listener.getMinScrollDistance()
+                if (abs(dx) >= minMoveDistance) {
+                    listener.onScroll(this, dx)
+                    lastX = event.x
+                }
+            }
