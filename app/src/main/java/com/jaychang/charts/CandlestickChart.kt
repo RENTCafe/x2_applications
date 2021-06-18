@@ -638,3 +638,20 @@ private class ChartScrollGestureDetector(private val listener: Listener) {
                     lastX = event.x
                 }
             }
+            MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                _scrollEventTime = 0
+            }
+        }
+    }
+
+    interface Listener {
+        fun getMinScrollDistance(): Float
+        fun onScroll(detector: ChartScrollGestureDetector, distance: Float)
+    }
+}
+
+private fun String.textBound(paint: Paint): Rect {
+    val rect = Rect()
+    paint.getTextBounds(this, 0, this.length, rect)
+    return rect
+}
