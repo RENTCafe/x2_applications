@@ -5,4 +5,4 @@ import androidx.appcompat.app.AppCompatActivity
 
 class DemoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onC
+        super.onCreate(savedInstanceState)
