@@ -8,4 +8,5 @@ class DemoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.demo)
         val chart = findViewById<CandlestickChart>(R.id.chart)
-        chart.data 
+        chart.data = barDataList()
+        chart.curre
