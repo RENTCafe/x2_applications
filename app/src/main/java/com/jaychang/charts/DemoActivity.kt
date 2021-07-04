@@ -9,4 +9,6 @@ class DemoActivity : AppCompatActivity() {
         setContentView(R.layout.demo)
         val chart = findViewById<CandlestickChart>(R.id.chart)
         chart.data = barDataList()
-        chart.curre
+        chart.currentPrice = 200f
+    }
+}
