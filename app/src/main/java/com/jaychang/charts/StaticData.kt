@@ -98,3 +98,31 @@ fun barDataList(): List<BarData> {
         ),
         BarData(
             time = LocalDate.parse("2018-11-07"),
+            open = 183.79f,
+            high = 187.68f,
+            low = 182.06f,
+            close = 187.23f
+        ),
+        BarData(
+            time = LocalDate.parse("2018-11-08"),
+            open = 187.13f,
+            high = 188.69f,
+            low = 185.72f,
+            close = 188.00f
+        ),
+        BarData(
+            time = LocalDate.parse("2018-11-09"),
+            open = 188.32f,
+            high = 188.48f,
+            low = 184.96f,
+            close = 185.99f
+        ),
+        BarData(
+            time = LocalDate.parse("2018-11-12"),
+            open = 185.23f,
+            high = 186.95f,
+            low = 179.02f,
+            close = 179.43f
+        ),
+        BarData(
+            time = LocalDate.parse("2018-11-13"),
