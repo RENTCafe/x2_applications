@@ -1055,3 +1055,5 @@ fun barDataList(): List<BarData> {
             low = 193.75f,
             close = 194.38f
         )
+    )
+}
