@@ -8,4 +8,5 @@
         android:fillColor="#3DDC84"
         android:pathData="M0,0h108v108h-108z" />
     <path
-        android:fillColor="#
+        android:fillColor="#00000000"
+        andr
