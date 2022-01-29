@@ -62,4 +62,5 @@
         android:pathData="M0,9L108,9"
         android:strokeWidth="0.8"
         android:strokeColor="#33FFFFFF" />
-  
+    <path
+        android:fillColor="#0000000
