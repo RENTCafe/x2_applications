@@ -78,4 +78,4 @@
         android:strokeWidth="0.8"
         android:strokeColor="#33FFFFFF" />
     <path
-        an
+        android:fillColor="#00000000"
