@@ -2,4 +2,4 @@
 <resources>
     <dimen name="candle_width">2dp</dimen>
     <dimen name="candle_space">1dp</dimen>
-    <dimen name
+    <dimen name="price_scale_text_s
