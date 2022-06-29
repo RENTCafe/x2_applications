@@ -3,4 +3,4 @@
     <dimen name="candle_width">2dp</dimen>
     <dimen name="candle_space">1dp</dimen>
     <dimen name="price_scale_text_size">10dp</dimen>
-    <dimen n
+    <dimen name="price_scale_padding">8dp</
