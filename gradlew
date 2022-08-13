@@ -1,1 +1,4 @@
-#!/us
+#!/usr/bin/env sh
+
+#
+#
