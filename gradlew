@@ -41,3 +41,6 @@ APP_HOME="`pwd -P`"
 cd "$SAVED" >/dev/null
 
 APP_NAME="Gradle"
+APP_BASE_NAME=`basename "$0"`
+
+# Add d
